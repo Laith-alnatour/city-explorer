@@ -22,13 +22,17 @@ class App extends Component {
     e.preventDefault();
     console.log(e.target.userSearch.value);
     const key = (process.env.REACT_APP_MAP_API_KEY);
+    console.log(key);
+
+
     if (e.target.userSearch.value !=''){
       const cityInfo = await axios.get(`https://eu1.locationiq.com/v1/search?key=${key}&q=${e.target.userSearch.value}&format=json`);
       console.log(cityInfo.data.length);
       
       
       this.setState({user: cityInfo.data[0]})
-      
+      console.log(cityInfo.data[0]);
+
       const res = await fetch(`https://maps.locationiq.com/v3/staticmap?key=${key}&center=${cityInfo.data[0].lat},${cityInfo.data[0].lon}&zoom=`);
       const imageBlob = await res.blob();
       const imageObjectURL = URL.createObjectURL(imageBlob);
